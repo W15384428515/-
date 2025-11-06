@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>同沙骑行烤肉活动物资管理</title>
+    <meta name="description" content="2025年11月15日同沙骑行烤肉活动物资管理清单">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 100%);
+            color: #5a3921;
+            line-height: 1.6;
+            padding: 15px;
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(139, 69, 19, 0.1);
+            border-left: 4px solid #d2691e;
+        }
+        
+        h1 {
+            color: #8b4513;
+            margin-bottom: 8px;
+            font-size: 1.6rem;
+        }
+        
+        .date {
+            font-size: 1rem;
+            color: #a0522d;
+            font-weight: 500;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            margin-top: 12px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+        }
+        
+        .color-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+        
+        .purchased {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .not-purchased {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(139, 69, 19, 0.1);
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px 5px;
+            background: #f0e6d2;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #8b4513;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .tab.active {
+            background: #d2691e;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 3px 10px rgba(139, 69, 19, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: #8b4513;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #e0c9af;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.2rem;
+        }
+        
+        h2 i {
+            color: #d2691e;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            padding: 10px 8px;
+            text-align: left;
+            border-bottom: 1px solid #e0c9af;
+        }
+        
+        th {
+            background-color: #f5e9d9;
+            color: #8b4513;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: #fdf8f3;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .status.purchased {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status.not-purchased {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .search-box {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #e0c9af;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box input:focus {
+            border-color: #d2691e;
+            box-shadow: 0 0 0 2px rgba(210, 105, 30, 0.2);
+        }
+        
+        .search-box button {
+            padding: 10px 15px;
+            background: #d2691e;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .progress-section {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 3px 10px rgba(139, 69, 19, 0.1);
+            margin-top: 15px;
+        }
+        
+        .progress-bar {
+            height: 16px;
+            background: #f0e6d2;
+            border-radius: 8px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #d2691e, #ff8c42);
+            border-radius: 8px;
+            width: 0%;
+            transition: width 1s ease;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            color: #8b4513;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 25px;
+            padding: 15px;
+            color: #8b4513;
+            font-size: 0.8rem;
+        }
+        
+        .copy-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #8b4513;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: #6b3410;
+        }
+        
+        .copy-notice {
+            text-align: center;
+            margin-top: 10px;
+            color: #28a745;
+            font-weight: 500;
+            display: none;
+        }
+        
+        /* 移动端优化 */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.4rem;
+            }
+            
+            .tab {
+                font-size: 0.8rem;
+                padding: 10px 3px;
+            }
+            
+            th, td {
+                padding: 8px 5px;
+                font-size: 0.85rem;
+            }
+            
+            h2 {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* 防止微信调整字体大小 */
+        body {
+            -webkit-text-size-adjust: 100% !important;
+            text-size-adjust: 100% !important;
+            -moz-text-size-adjust: 100% !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>同沙骑行烤肉活动</h1>
+            <div class="date">2025年11月15日</div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="color-box purchased"></div>
+                    <span>已购买/已完成</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box not-purchased"></div>
+                    <span>未购买/未完成</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab active" data-tab="ingredients">食材</button>
+            <button class="tab" data-tab="tools">工具</button>
+            <button class="tab" data-tab="services">服务</button>
+        </div>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="搜索物品或任务...">
+            <button id="searchBtn"><i class="fas fa-search"></i></button>
+        </div>
+        
+        <div class="tab-content active" id="ingredients">
+            <h2><i class="fas fa-utensils"></i> 食材清单</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>类别</th>
+                        <th>项目</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="5">肉类</td>
+                        <td>吊龙</td>
+                        <td><span class="status not-purchased">未购买</span></td>
+                    </tr>
+                    <tr>
+                        <td>嫩肉</td>
+                        <td><span class="status not-purchased">未购买</span></td>
+                    </tr>
+                    <tr>
+                        <td>匙柄</td>
+                        <td><span class="status not-purchased">未购买</span></td>
+                    </tr>
+                    <tr>
+                        <td>五花</td>
+                        <td><span class="status not-purchased">未购买</span></td>
+                    </tr>
+                    <tr>
+                        <td>鸡翅</td>
+                        <td><span class="status not-purchased">未购买</span></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">海鲜</td>
+                        <td>罗氏虾</td>
+                        <td><span class="status not-purchased">未购买</span></td>
+                    </tr>
+                    <tr>
+                        <td>鲍鱼</td>
+                        <td><span class="status not-purchased">未购买</span></td>
+                    </tr>
+                    <tr>
+                        <td>其他</td>
+                        <td>午餐肉</td>
+                        <td><span class="status not-purchased">未购买</span></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">蔬菜</td>
+                        <td>西葫芦</td>
+                        <td><span class="status not-purchased">未购买</span></td>
+                    </tr>
+                    <tr>
+                        <td>金针菇</td>
+                        <td><span class="status not-purchased">未购买</span></td>
+                    </tr>
+                    <tr>
+                        <td>生菜</td>
+                        <td><span class="status not-purchased">未购买</span></td>
+                    </tr>
+                    <tr>
+                        <td>洋葱</td>
+                        <td><span class="status not-purchased">未购买</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="tab-content" id="tools">
+            <h2><i class="fas fa-tools"></i> 工具与用品</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>类别</th>
+                        <th>项目</th>
+                        <th>数量</th>
+                        <th>状态</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="5">餐具</td>
+                        <td>蘸料碟</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>食碟</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>调料碗</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>筷子</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>酒水扎</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="5">辅助工具</td>
+                        <td>铁夹</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>油罐</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>置物架</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>隔油纸</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>陶瓷笔筒</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td>装隔油纸</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="5">清洁与防护</td>
+                        <td>垃圾桶</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>纸巾</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>手套</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>围裙</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>蚊香</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未准备</span></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="tab-content" id="services">
+            <h2><i class="fas fa-concierge-bell"></i> 服务任务</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>任务内容</th>
+                        <th>负责人</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>点火</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未完成</span></td>
+                    </tr>
+                    <tr>
+                        <td>摆桌</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未完成</span></td>
+                    </tr>
+                    <tr>
+                        <td>收桌</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未完成</span></td>
+                    </tr>
+                    <tr>
+                        <td>倒垃圾</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未完成</span></td>
+                    </tr>
+                    <tr>
+                        <td>指引</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未完成</span></td>
+                    </tr>
+                    <tr>
+                        <td>换气罐</td>
+                        <td></td>
+                        <td><span class="status not-purchased">未完成</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="progress-section">
+            <h2><i class="fas fa-chart-line"></i> 准备进度</h2>
+            <div class="progress-text">
+                <span>总体进度</span>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+            <p style="font-size: 0.85rem;">点击状态标记可更新进度</p>
+        </div>
+        
+        <button class="copy-btn" id="copyTableBtn">
+            <i class="fas fa-copy"></i> 复制表格数据
+        </button>
+        <div class="copy-notice" id="copyNotice">表格数据已复制到剪贴板！</div>
+        
+        <footer>
+            <p>同沙骑行烤肉活动 &copy; 2025</p>
+            <p>通过GitHub Pages部署</p>
+        </footer>
+    </div>
+
+    <script>
+        // 标签切换功能
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // 状态切换功能
+        document.querySelectorAll('.status').forEach(status => {
+            status.addEventListener('click', () => {
+                if (status.classList.contains('purchased')) {
+                    status.classList.remove('purchased');
+                    status.classList.add('not-purchased');
+                    status.textContent = status.textContent.includes('购买') ? '未购买' : '未完成';
+                } else {
+                    status.classList.remove('not-purchased');
+                    status.classList.add('purchased');
+                    status.textContent = status.textContent.includes('购买') ? '已购买' : '已完成';
+                }
+                updateProgress();
+            });
+        });
+        
+        // 搜索功能
+        document.getElementById('searchBtn').addEventListener('click', performSearch);
+        document.getElementById('searchInput').addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') performSearch();
+        });
+        
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (!searchTerm) {
+                // 清除高亮
+                document.querySelectorAll('table tbody tr').forEach(row => {
+                    row.style.backgroundColor = '';
+                });
+                return;
+            }
+            
+            // 在所有表格中搜索
+            document.querySelectorAll('table tbody tr').forEach(row => {
+                let found = false;
+                row.querySelectorAll('td').forEach(cell => {
+                    if (cell.textContent.toLowerCase().includes(searchTerm)) {
+                        found = true;
+                    }
+                });
+                
+                if (found) {
+                    row.style.backgroundColor = '#fff3cd';
+                    // 滚动到第一个匹配项
+                    if (!document.querySelector('.highlighted')) {
+                        row.classList.add('highlighted');
+                        row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        setTimeout(() => row.classList.remove('highlighted'), 2000);
+                    }
+                } else {
+                    row.style.backgroundColor = '';
+                }
+            });
+        }
+        
+        // 更新进度条
+        function updateProgress() {
+            const totalItems = document.querySelectorAll('.status').length;
+            const completedItems = document.querySelectorAll('.status.purchased').length;
+            const progressPercent = Math.round((completedItems / totalItems) * 100);
+            
+            document.getElementById('progressPercent').textContent = `${progressPercent}%`;
+            document.getElementById('progressBar').style.width = `${progressPercent}%`;
+        }
+        
+        // 复制表格数据功能
+        document.getElementById('copyTableBtn').addEventListener('click', function() {
+            let tableData = "同沙骑行烤肉活动物资清单\n\n";
+            
+            // 食材表格
+            tableData += "=== 食材清单 ===\n";
+            const ingredientRows = document.querySelectorAll('#ingredients table tbody tr');
+            ingredientRows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 2) {
+                    tableData += `${cells[0].textContent} - ${cells[1].textContent} - ${cells[2].textContent}\n`;
+                }
+            });
+            
+            // 工具表格
+            tableData += "\n=== 工具清单 ===\n";
+            const toolRows = document.querySelectorAll('#tools table tbody tr');
+            toolRows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 4) {
+                    tableData += `${cells[0].textContent} - ${cells[1].textContent} - ${cells[3].textContent}\n`;
+                }
+            });
+            
+            // 服务表格
+            tableData += "\n=== 服务任务 ===\n";
+            const serviceRows = document.querySelectorAll('#services table tbody tr');
+            serviceRows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 3) {
+                    tableData += `${cells[0].textContent} - ${cells[2].textContent}\n`;
+                }
+            });
+            
+            // 复制到剪贴板
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(tableData).then(() => {
+                    showCopyNotice();
+                });
+            } else {
+                // 备用方法
+                const textArea = document.createElement("textarea");
+                textArea.value = tableData;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showCopyNotice();
+            }
+        });
+        
+        function showCopyNotice() {
+            const notice = document.getElementById('copyNotice');
+            notice.style.display = 'block';
+            setTimeout(() => {
+                notice.style.display = 'none';
+            }, 3000);
+        }
+        
+        // 初始化进度条
+        updateProgress();
+    </script>
+</body>
+</html>
